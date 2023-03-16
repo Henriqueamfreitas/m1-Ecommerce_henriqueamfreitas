@@ -62,3 +62,16 @@ const data = [
     tag: ["Camisetas"],
   },
 ];
+
+
+// TASKS
+// 1- DONE Create a function that renders the product cards
+// 2- DONE Logic of the button to add the product to the shopping cart
+// 3- DONE Logic of the button to remove the product from the shopping cart
+// 4- DONE Logic that informs the number of products in the cart
+// 5- DONE Logic that does not allow the same item to be added more than once
+// 6- DONE Logic that informs the total price of the products in the shopping cart
+
+// 7- Logic that, if the shopping cart is empty, informs that the shopping cart is empty
+// 8- Logic that filters the page according to the selected tag
+// 9- Logic that filters the page according to the typed name
