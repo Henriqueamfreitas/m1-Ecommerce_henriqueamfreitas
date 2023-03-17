@@ -33,11 +33,17 @@ function creatingCards(object){
 
         // Assigning value to elements
         productID.id = `p${product.id}`
+        productID.className = "product-cards"
         productImage.src = product.img
+        productImage.className = "card-image"
         productTag.innerHTML = product.tag
+        productTag.className = "card-tag"
         productNameItem.innerHTML = product.nameItem
+        productNameItem.className = "card-nameItem"
         productDecription.innerHTML = product.description
+        productDecription.className = "card-productDecription"
         productValue.innerHTML = `R$${product.value},00`
+        productValue.className = "card-productValue"
         buttonAddToCart.innerHTML = product.addCart
         buttonAddToCart.id = product.id
         buttonAddToCart.classList.add("productButton")
@@ -79,7 +85,7 @@ function creatingCards(object){
             let elementProduct = addToCart(product)
             cartListUL.append(elementProduct)}
             } else{
-            alert("This product is already on your shopping cart")}
+            alert("Este produto já está no seu carrinho de compras")}
         })
 
         
@@ -107,15 +113,17 @@ function addToCart(object){
     // Creating the elements
     let productID = document.createElement("li")
     let productImage = document.createElement("img")
-    let productTag = document.createElement("p")
+    let div = document.createElement("div")
     let productNameItem = document.createElement("h1")
-    let productDecription = document.createElement("p")
     let productValue = document.createElement("p")
     let buttonRemoveProduct = document.createElement("button")
 
     // Assigning value to elements
     productID.id = `l${object.id}`
+    productID.className = "shopping-cart-item"
     productImage.src = object.img
+    productImage.className = "shopping-cart-image"
+    div.className = "name-price-button"
     productNameItem.innerHTML = object.nameItem
     productValue.innerHTML = `R$${object.value},00`
     buttonRemoveProduct.innerHTML = "Remover produto"
@@ -130,7 +138,7 @@ function addToCart(object){
         let elementID = listPath[0].id
         cartPrice-=searchProductPrice(elementID)
         cardPrice.innerHTML = `R$${cartPrice},00`
-        listPath[1].remove()
+        listPath[2].remove()
         // console.log(listPath[1])
         
         // Task 8: Logic that, if the shopping cart is empty, informs that the shopping cart is empty
@@ -149,7 +157,8 @@ function addToCart(object){
     })
 
     // Creating the hierarchy of elements
-    productID.append(productImage, productTag, productNameItem, productDecription, productValue, buttonRemoveProduct)
+    div.append(productNameItem, productValue, buttonRemoveProduct)
+    productID.append(productImage, div)
     return productID
 }
 
