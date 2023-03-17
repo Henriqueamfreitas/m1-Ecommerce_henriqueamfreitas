@@ -98,11 +98,13 @@ const filters = [
 // 6- DONE Logic that informs the total price of the products in the shopping cart
 // 7- DONE Logic that filters the page according to the selected tag
 
-// 8- Logic that filters the page according to the typed name
-// 9- Logic that, if the shopping cart is empty, informs that the shopping cart is empty
+
+// 8- Logic that, if the shopping cart is empty, informs that the shopping cart is empty
 // Understanding the task number 9
 // a- if (ul class=cart-list) is empty, then the (div class=cart-details) must be inactive AND the class=cart-empty 
 // must be active
     // document.querySelector("aside").children[2].remove("cart-details")
 // b- if (ul class=cart-list) is NOT empty, then the (div class=cart-details) must be active AND the class=cart-empty 
 // must be inactive
+
+// 9- Logic that filters the page according to the typed name
