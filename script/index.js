@@ -58,6 +58,7 @@ function creatingCards(object){
             let cartProducts = document.querySelector("aside").children[2]
             let cartDetails = document.querySelector("aside").children[3]
 
+            // Task 8: Logic that, if the shopping cart is empty, informs that the shopping cart is empty
             if(cartNumber == 0){
             cartProducts.classList.add("hidden")
             cartProducts.classList.remove("cart-products")
@@ -130,7 +131,9 @@ function addToCart(object){
         cartPrice-=searchProductPrice(elementID)
         cardPrice.innerHTML = `R$${cartPrice},00`
         listPath[1].remove()
-        console.log(listPath[1])
+        // console.log(listPath[1])
+        
+        // Task 8: Logic that, if the shopping cart is empty, informs that the shopping cart is empty
         if(cartNumber==0){
             let cartEmpty = document.querySelector("aside").children[1]
             let cartProducts = document.querySelector("aside").children[2]
@@ -151,7 +154,7 @@ function addToCart(object){
 }
 
 
-// IN THE INITIAL STAGE, THE SHOPPING CART IS EMPTY
+// Task 8:Logic that, if the shopping cart is empty, informs that the shopping cart is empty
 let cartEmpty = document.querySelector("aside").children[1]
 let cartProducts = document.querySelector("aside").children[2]
 let cartDetails = document.querySelector("aside").children[3]
@@ -234,76 +237,32 @@ function filterCardsByTag(list, str){ //list vai receber a data
 
 
 
-// 8- Logic that, if the shopping cart is empty, informs that the shopping cart is empty
-// Understanding the task number 8
-// a- if (ul class=cart-list) is empty, then the (div class=cart-details) must be inactive AND the class=cart-empty 
-// must be active
-// function addingAndRemovingClasses
-// let cartEmpty = document.querySelector("aside").children[1]
-// let cartProducts = document.querySelector("aside").children[2]
-// let cartDetails = document.querySelector("aside").children[3]
-// console.log(cartDetails.children[0].children[1].innerHTML)
-// if(cartDetails.children[0].children[1].innerHTML == 0){
-    //     cartProducts.classList.add("hidden")
-    //     cartProducts.classList.remove("cart-products")
-    //     cartDetails.classList.add("hidden")
-    //     cartDetails.classList.remove("cart-details")
-    //     cartEmpty.classList.add("cart-empty")
-    // cartEmpty.classList.remove("hidden")
 
-// } else{
-//         cartProducts.classList.add("cart-products")
-//         cartProducts.classList.remove("hidden")
-//         cartDetails.classList.add("cart-details")
-//         cartDetails.classList.remove("hidden")
-//         cartEmpty.classList.add("hidden")
-//         cartEmpty.classList.remove("cart-empty")
-//     }
-    
-    // cartProducts.classList.add("hidden")
-    // cartProducts.classList.remove("cart-products")
-    // cartDetails.classList.add("hidden")
-    // cartDetails.classList.remove("cart-details")
-    // cartEmpty.classList.add("hidden")
-    // cartEmpty.classList.remove("cart-empty")
-    
-    // console.log(cartEmpty)
-    // console.log(cartProducts)
-    // console.log(cartDetails)
-    
-    // console.log(cartDetails.children[0].children[1].innerHTML)
-    // console.log(typeof(cartDetails.children[0].children[1].innerHTML))
-    
-    
-    // b- if (ul class=cart-list) is NOT empty, then the (div class=cart-details) must be active AND the class=cart-empty 
-    // must be inactive
-    
+// Task 9: Logic that filters the page according to the typed name
+// Creating function that filters by name
+function filterCardsByName(list, str){ //list vai receber a data
+    let arrayTemp = []
+
+    for (let i=0; i<list.length; i+=1){
+        if(str == ""){
+            arrayTemp = list
+            return arrayTemp
+        } else if(list[i].nameItem == str) // Name typed on the search input 
+        arrayTemp.push(list[i])
+    } 
+    return arrayTemp
+}
 
 
+let searchButton = document.querySelector(".search-button")
+let input = document.querySelector(".search-input")
 
+searchButton.addEventListener("click", function(event){
+    // alert("You've clicked here!")
+    event.preventDefault();
+    let inputValue = input.value
+    // console.log(inputValue)
+    creatingCards(filterCardsByName(data, inputValue))
 
-
-
-
-// // Task 9: Logic that filters the page according to the typed name
-// // Creating function that filters by name
-// function filterCardsByName(list, str){ //list vai receber a data
-//     let arrayTemp = []
-
-//     for (let i=0; i<list.length; i+=1){
-//         if(list[i].nameItem == str) // Name typed on the search input 
-//         arrayTemp.push(list[i])
-//     }
-//     return arrayTemp
-// }
-
-
-// // function searchButton(){
-//     // let searchButton = document.querySelector(".search-button")
-//     document.querySelector(".search-button").addEventListener("click", function(event){
-//         console.log("You've clicked here!")
-//     })
-// // }
-
-// TESTS OUTSIDE OF THE LOOP
+})
 
