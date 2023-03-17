@@ -11,11 +11,13 @@ let cardValue = document.querySelector(".details-values").children[1]
 
 let cartPrice = 0
 let cardPrice = document.querySelector(".cart-details").children[1].children[1]
-// cardPrice.innerHTML = "10"
-// console.log(cardPrice)
+
+
 
 // Creating the function that generates the product card
 function creatingCards(object){
+    let listOfProducts = document.querySelector(".ul-main-cards")
+    listOfProducts.innerHTML = ""
     for (i=0; i<object.length; i+=1){
         let  product = object[i]
 
@@ -56,6 +58,7 @@ function creatingCards(object){
             alert("This product is already on your shopping cart")}
         })
 
+        
 
         // Creating the hierarchy of elements
         productID.append(productImage, productTag, productNameItem, productDecription, productValue, buttonAddToCart)
@@ -89,9 +92,7 @@ function addToCart(object){
     // Assigning value to elements
     productID.id = `l${object.id}`
     productImage.src = object.img
-    // productTag.innerHTML = object.tag
     productNameItem.innerHTML = object.nameItem
-    // productDecription.innerHTML = object.description
     productValue.innerHTML = `R$${object.value},00`
     buttonRemoveProduct.innerHTML = "Remover produto"
     buttonRemoveProduct.id = object.id
@@ -132,6 +133,52 @@ function searchProductPrice(id){
         }
     }
 }
+
+
+// Task 7
+// Creating buttons for every item
+let headerMenu = document.querySelector(".header-menu") 
+
+function creatingFilterButtons(element, object){
+    for (i=0; i<headerMenu.children.length; i+=1){
+    // Creating the elements
+    let button = document.createElement("button")
+
+    // Cleaning the original value of elements
+    element.children[i].innerHTML = ""
+    
+    // Assigning value to elements
+    button.id = object[i].id
+    button.innerHTML = object[i].type
+    button.classList.add("filterButton")
+
+    // Customizing the button
+    button.addEventListener("click", function(event){
+    if(button.innerHTML == "Todos"){
+        creatingCards(data)
+    } else{
+    creatingCards(filterCards(data, button.innerHTML))
+    }    
+    })
+
+    // Creating the hierarchy of elements
+    element.children[i].append(button)
+}}
+creatingFilterButtons(headerMenu, filters)
+
+
+// Creating function that filters by tag
+function filterCards(list, str){ //list vai receber a data
+    let arrayTemp = []
+
+    for (let i=0; i<list.length; i+=1){
+        if(list[i].tag == str) //button.innerHTML
+        arrayTemp.push(list[i])
+    }
+    return arrayTemp
+}
+
+
 
 // TESTS OUTSIDE OF THE LOOP
 

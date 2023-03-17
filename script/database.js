@@ -64,6 +64,31 @@ const data = [
 ];
 
 
+// let arrayTeste = []
+// function test(array){
+// for (i=0; i<data.length; i+=1){
+//   array.push(data[i].tag)
+// }
+// return array
+// }
+// test(arrayTeste)
+
+const filters = [
+  {
+    id: 1,
+    type: "Todos",
+  },
+  {
+    id: 2,
+    type: "Camisetas",
+  },
+  {
+    id: 3,
+    type: "Acessórios",
+  },
+]
+
+
 // TASKS
 // 1- DONE Create a function that renders the product cards
 // 2- DONE Logic of the button to add the product to the shopping cart
@@ -71,7 +96,13 @@ const data = [
 // 4- DONE Logic that informs the number of products in the cart
 // 5- DONE Logic that does not allow the same item to be added more than once
 // 6- DONE Logic that informs the total price of the products in the shopping cart
+// 7- DONE Logic that filters the page according to the selected tag
 
-// 7- Logic that, if the shopping cart is empty, informs that the shopping cart is empty
-// 8- Logic that filters the page according to the selected tag
-// 9- Logic that filters the page according to the typed name
+// 8- Logic that filters the page according to the typed name
+// 9- Logic that, if the shopping cart is empty, informs that the shopping cart is empty
+// Understanding the task number 9
+// a- if (ul class=cart-list) is empty, then the (div class=cart-details) must be inactive AND the class=cart-empty 
+// must be active
+    // document.querySelector("aside").children[2].remove("cart-details")
+// b- if (ul class=cart-list) is NOT empty, then the (div class=cart-details) must be active AND the class=cart-empty 
+// must be inactive
