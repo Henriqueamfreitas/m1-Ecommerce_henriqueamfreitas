@@ -1,103 +1,87 @@
-// Assigning the principal HTML elements to variables
-let cardsSection = document.querySelector(".main-cards") 
+let cardsSection = document.querySelector('.main-cards') 
 let ul = cardsSection.children[0]
-ul.className = "ul-main-cards"
+ul.className = 'ul-main-cards'
 
-let cardsUL = document.querySelector(".ul-main-cards") 
-let cartListUL = document.querySelector(".cart-list")
+let cardsUL = document.querySelector('.ul-main-cards') 
+let cartListUL = document.querySelector('.cart-list')
 
 let cartNumber = 0
-let cardValue = document.querySelector(".details-values").children[1]
+let cardValue = document.querySelector('.details-values').children[1]
 
 let cartPrice = 0
-let cardPrice = document.querySelector(".cart-details").children[1].children[1]
+let cardPrice = document.querySelector('.cart-details').children[1].children[1]
 
-
-
-// Task 1: Create a function that renders the product cards
-// Creating the function that generates the product card
 function creatingCards(object){
-    let listOfProducts = document.querySelector(".ul-main-cards")
-    listOfProducts.innerHTML = ""
+    let listOfProducts = document.querySelector('.ul-main-cards')
+    listOfProducts.innerHTML = ''
     for (i=0; i<object.length; i+=1){
         let  product = object[i]
+        let productID = document.createElement('li')
+        let productImage = document.createElement('img')
+        let productTag = document.createElement('p')
+        let productNameItem = document.createElement('h1')
+        let productDecription = document.createElement('p')
+        let productValue = document.createElement('p')
+        let buttonAddToCart = document.createElement('button')
 
-        // Creating the elements
-        let productID = document.createElement("li")
-        let productImage = document.createElement("img")
-        let productTag = document.createElement("p")
-        let productNameItem = document.createElement("h1")
-        let productDecription = document.createElement("p")
-        let productValue = document.createElement("p")
-        let buttonAddToCart = document.createElement("button")
-
-        // Assigning value to elements
         productID.id = `p${product.id}`
-        productID.className = "product-cards"
+        productID.className = 'product-cards'
         productImage.src = product.img
-        productImage.className = "card-image"
+        productImage.className = 'card-image'
         productTag.innerHTML = product.tag
-        productTag.className = "card-tag"
+        productTag.className = 'card-tag'
         productNameItem.innerHTML = product.nameItem
-        productNameItem.className = "card-nameItem"
+        productNameItem.className = 'card-nameItem'
         productDecription.innerHTML = product.description
-        productDecription.className = "card-productDecription"
+        productDecription.className = 'card-productDecription'
         productValue.innerHTML = `R$${product.value},00`
-        productValue.className = "card-productValue"
+        productValue.className = 'card-productValue'
         buttonAddToCart.innerHTML = product.addCart
         buttonAddToCart.id = product.id
-        buttonAddToCart.classList.add("productButton")
+        buttonAddToCart.classList.add('productButton')
 
-        
-        // Task 2: Logic of the button to add the product to the shopping cart
-        // Customizing the button
-        buttonAddToCart.addEventListener("click", function(event){
-            let elementID = parseInt(event.target.id) // remember that this was a string
+        buttonAddToCart.addEventListener('click', function(event){
+            let elementID = parseInt(event.target.id)
             if(verifyProduct(elementID) == false){
-            // Task 4: Logic that informs the number of products in the cart
-            cartNumber+=1
-            cardValue.innerHTML = `${cartNumber}`
-            cartPrice+=searchProductPrice(elementID)
-            cardPrice.innerHTML = `R$${cartPrice},00`
+                cartNumber+=1
+                cardValue.innerHTML = `${cartNumber}`
+                cartPrice+=searchProductPrice(elementID)
+                cardPrice.innerHTML = `R$${cartPrice},00`
             
-            let cartEmpty = document.querySelector("aside").children[1]
-            let cartProducts = document.querySelector("aside").children[2]
-            let cartDetails = document.querySelector("aside").children[3]
+                let cartEmpty = document.querySelector('aside').children[1]
+                let cartProducts = document.querySelector('aside').children[2]
+                let cartDetails = document.querySelector('aside').children[3]
 
-            // Task 8: Logic that, if the shopping cart is empty, informs that the shopping cart is empty
-            if(cartNumber == 0){
-            cartProducts.classList.add("hidden")
-            cartProducts.classList.remove("cart-products")
-            cartDetails.classList.add("hidden")
-            cartDetails.classList.remove("cart-details")
-            cartEmpty.classList.add("cart-empty")
-            cartEmpty.classList.remove("hidden")
-            } else{
-            cartProducts.classList.add("cart-products")
-            cartProducts.classList.remove("hidden")
-            cartDetails.classList.add("cart-details")
-            cartDetails.classList.remove("hidden")
-            cartEmpty.classList.add("hidden")
-            cartEmpty.classList.remove("cart-empty")
+                if(cartNumber == 0){
+                    cartProducts.classList.add('hidden')
+                    cartProducts.classList.remove('cart-products')
+                    cartDetails.classList.add('hidden')
+                    cartDetails.classList.remove('cart-details')
+                    cartEmpty.classList.add('cart-empty')
+                    cartEmpty.classList.remove('hidden')
+                } else{
+                    cartProducts.classList.add('cart-products')
+                    cartProducts.classList.remove('hidden')
+                    cartDetails.classList.add('cart-details')
+                    cartDetails.classList.remove('hidden')
+                    cartEmpty.classList.add('hidden')
+                    cartEmpty.classList.remove('cart-empty')
             
 
-            let product = searchProduct(elementID)
-            let elementProduct = addToCart(product)
-            cartListUL.append(elementProduct)}
+                    let product = searchProduct(elementID)
+                    let elementProduct = addToCart(product)
+                    cartListUL.append(elementProduct)}
             } else{
-            alert("Este produto já está no seu carrinho de compras")}
+                toastr.warning('Este produto já está no seu carrinho de compras')
+            }
         })
 
-        
-        // Creating the hierarchy of elements
         productID.append(productImage, productTag, productNameItem, productDecription, productValue, buttonAddToCart)
         cardsUL.append(productID)
     }
 }
 creatingCards(data)
 
-
-// Creating function that search for the product
 function searchProduct(id){
     for (let i=0; i<data.length; i+=1){
         if(data[i].id == id){
@@ -106,32 +90,26 @@ function searchProduct(id){
     }
 }
 
-
-// Task 3: Logic of the button to remove the product from the shopping cart
-// Creating function that recieves a product and return a product card
 function addToCart(object){
-    // Creating the elements
-    let productID = document.createElement("li")
-    let productImage = document.createElement("img")
-    let div = document.createElement("div")
-    let productNameItem = document.createElement("h1")
-    let productValue = document.createElement("p")
-    let buttonRemoveProduct = document.createElement("button")
+    let productID = document.createElement('li')
+    let productImage = document.createElement('img')
+    let div = document.createElement('div')
+    let productNameItem = document.createElement('h1')
+    let productValue = document.createElement('p')
+    let buttonRemoveProduct = document.createElement('button')
 
-    // Assigning value to elements
     productID.id = `l${object.id}`
-    productID.className = "shopping-cart-item"
+    productID.className = 'shopping-cart-item'
     productImage.src = object.img
-    productImage.className = "shopping-cart-image"
-    div.className = "name-price-button"
+    productImage.className = 'shopping-cart-image'
+    div.className = 'name-price-button'
     productNameItem.innerHTML = object.nameItem
     productValue.innerHTML = `R$${object.value},00`
-    buttonRemoveProduct.innerHTML = "Remover produto"
+    buttonRemoveProduct.innerHTML = 'Remover produto'
     buttonRemoveProduct.id = object.id
-    buttonRemoveProduct.classList.add("productButton")
+    buttonRemoveProduct.classList.add('productButton')
 
-    // Customizing the button
-    buttonRemoveProduct.addEventListener("click", function(event){
+    buttonRemoveProduct.addEventListener('click', function(event){
         cartNumber-=1
         cardValue.innerHTML = `${cartNumber}`
         let listPath = event.composedPath()
@@ -139,45 +117,37 @@ function addToCart(object){
         cartPrice-=searchProductPrice(elementID)
         cardPrice.innerHTML = `R$${cartPrice},00`
         listPath[2].remove()
-        // console.log(listPath[1])
-        
-        // Task 8: Logic that, if the shopping cart is empty, informs that the shopping cart is empty
+
         if(cartNumber==0){
-            let cartEmpty = document.querySelector("aside").children[1]
-            let cartProducts = document.querySelector("aside").children[2]
-            let cartDetails = document.querySelector("aside").children[3]
+            let cartEmpty = document.querySelector('aside').children[1]
+            let cartProducts = document.querySelector('aside').children[2]
+            let cartDetails = document.querySelector('aside').children[3]
     
-            cartProducts.classList.add("hidden")
-            cartProducts.classList.remove("cart-products")
-            cartDetails.classList.add("hidden")
-            cartDetails.classList.remove("cart-details")
-            cartEmpty.classList.add("cart-empty")
-            cartEmpty.classList.remove("hidden")
+            cartProducts.classList.add('hidden')
+            cartProducts.classList.remove('cart-products')
+            cartDetails.classList.add('hidden')
+            cartDetails.classList.remove('cart-details')
+            cartEmpty.classList.add('cart-empty')
+            cartEmpty.classList.remove('hidden')
         }
     })
 
-    // Creating the hierarchy of elements
     div.append(productNameItem, productValue, buttonRemoveProduct)
     productID.append(productImage, div)
     return productID
 }
 
+let cartEmpty = document.querySelector('aside').children[1]
+let cartProducts = document.querySelector('aside').children[2]
+let cartDetails = document.querySelector('aside').children[3]
 
-// Task 8:Logic that, if the shopping cart is empty, informs that the shopping cart is empty
-let cartEmpty = document.querySelector("aside").children[1]
-let cartProducts = document.querySelector("aside").children[2]
-let cartDetails = document.querySelector("aside").children[3]
+cartProducts.classList.add('hidden')
+cartProducts.classList.remove('cart-products')
+cartDetails.classList.add('hidden')
+cartDetails.classList.remove('cart-details')
+cartEmpty.classList.add('cart-empty')
+cartEmpty.classList.remove('hidden')
 
-cartProducts.classList.add("hidden")
-cartProducts.classList.remove("cart-products")
-cartDetails.classList.add("hidden")
-cartDetails.classList.remove("cart-details")
-cartEmpty.classList.add("cart-empty")
-cartEmpty.classList.remove("hidden")
-
-
-// Task 5: Logic that does not allow the same item to be added more than once
-// Function that evaluates if the item selected is already on the shopping cart
 function verifyProduct(id){
     let element = document.querySelector(`#l`+id)
     if(element == null){
@@ -186,10 +156,6 @@ function verifyProduct(id){
         return true
 }
 
-
-
-// Task 6: Logic that informs the total price of the products in the shopping cart
-// Creating function that search for the product and return its price
 function searchProductPrice(id){
     for (let i=0; i<data.length; i+=1){
         if(data[i].id == id){
@@ -198,80 +164,80 @@ function searchProductPrice(id){
     }
 }
 
-
-// Task 7: Logic that filters the page according to the selected tag
-// Creating buttons for every item
-let headerMenu = document.querySelector(".header-menu") 
+let headerMenu = document.querySelector('.header-menu') 
 
 function creatingFilterButtons(element, object){
     for (i=0; i<headerMenu.children.length; i+=1){
-    // Creating the elements
-    let button = document.createElement("button")
+
+    let button = document.createElement('button')
     let test1 = object[i].id
     let test2 = object[i].type
 
-    // Cleaning the original value of elements
-    element.children[i].innerHTML = ""
+    element.children[i].innerHTML = ''
     
-    // Assigning value to elements
     button.id = test1
     button.innerHTML = test2
-    button.classList.add("filterButton")
+    button.classList.add('filterButton')
 
-    // Customizing the button
-    button.addEventListener("click", function(event){
-    if(button.innerHTML == "Todos"){
+    button.addEventListener('click', function(event){
+    if(button.innerHTML == 'Todos'){
         creatingCards(data)
     } else{
     creatingCards(filterCardsByTag(data, button.innerHTML))
     }    
     })
 
-    // Creating the hierarchy of elements
     element.children[i].append(button)
 }}
 creatingFilterButtons(headerMenu, filters)
 
-
-// Creating function that filters by tag
-function filterCardsByTag(list, str){ //list vai receber a data
+function filterCardsByTag(list, str){ 
     let arrayTemp = []
 
     for (let i=0; i<list.length; i+=1){
-        if(list[i].tag == str) //button.innerHTML
+        if(list[i].tag == str) 
         arrayTemp.push(list[i])
     }
     return arrayTemp
 }
 
-
-
-
-// Task 9: Logic that filters the page according to the typed name
-// Creating function that filters by name
-function filterCardsByName(list, str){ //list vai receber a data
+function filterCardsByName(list, str){ 
     let arrayTemp = []
 
-    for (let i=0; i<list.length; i+=1){
-        if(str == ""){
+    for (let i = 0; i < data.length; i++) {
+        let itemName = data[i].nameItem
+        if(str === ''){
             arrayTemp = list
             return arrayTemp
-        } else if(list[i].nameItem == str) // Name typed on the search input 
-        arrayTemp.push(list[i])
-    } 
+        } else if (itemName.toLowerCase().indexOf(str) > -1) {
+            arrayTemp.push(list[i])
+        }
+    }
     return arrayTemp
 }
 
+let searchButton = document.querySelector('.search-button')
+let input = document.querySelector('.search-input')
 
-let searchButton = document.querySelector(".search-button")
-let input = document.querySelector(".search-input")
-
-searchButton.addEventListener("click", function(event){
-    // alert("You've clicked here!")
-    event.preventDefault();
-    let inputValue = input.value
-    // console.log(inputValue)
+input.addEventListener('keyup', function(event) {
+    let inputValue = input.value.toLowerCase()
     creatingCards(filterCardsByName(data, inputValue))
+});
 
-})
-
+toastr.options = {
+    'closeButton': true,
+    'debug': false,
+    'newestOnTop': false,
+    'progressBar': true,
+    'positionClass': 'toast-top-center',
+    'preventDuplicates': false,
+    'onclick': null,
+    'showDuration': '300',
+    'hideDuration': '1000',
+    'timeOut': '3000',
+    'extendedTimeOut': '1000',
+    'showEasing': 'swing',
+    'hideEasing': 'linear',
+    'showMethod': 'fadeIn',
+    'hideMethod': 'fadeOut'
+};
